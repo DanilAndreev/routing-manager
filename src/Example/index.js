@@ -1,6 +1,6 @@
 import React from "react";
 import {ChangeRouteProvider} from "../components/ChangeRoute";
-import {Redirect, Route, Router, Switch, useRouteMatch} from "react-router-dom";
+import {Route, BrowserRouter as Router, Switch, useRouteMatch} from "react-router-dom";
 import InfoPanel from "./InfoPanel";
 
 function Panels() {
@@ -8,30 +8,33 @@ function Panels() {
 
     return (
         <Switch>
-            <Route path={`${path}/:id/info`}>
-                <InfoPanel />
+            <Route path={`${path}/info`}>
+                <InfoPanel/>
             </Route>
-            <Route path={`${path}/:id/input`}>
+            <Route path={`${path}/input`}>
             </Route>
         </Switch>
     );
 }
 
-export default function Example() {
+function Example() {
     const {path} = useRouteMatch();
 
     return (
+        <ChangeRouteProvider routeMask={`:id(/:panel)`} startPath={'/1/info'}>
+            <Switch>
+                <Route path={`/:id`}>
+                    <Panels/>
+                </Route>
+            </Switch>
+        </ChangeRouteProvider>
+    );
+}
+
+export default function ExampleRouter() {
+    return (
         <Router>
-            <ChangeRouteProvider routeMask={`:id(/panel)`}>
-                <Switch>
-                    <Route path={`${path}`} exact>
-                        <Redirect to={`${path}/1`} />
-                    </Route>
-                    <Route path={`${path}/:id`}>
-                        <Panels />
-                    </Route>
-                </Switch>
-            </ChangeRouteProvider>
+            <Example/>
         </Router>
     );
 }

@@ -16,7 +16,8 @@ const RoutingContext = React.createContext({
 function ChangeRouteProvider({startPath, routeMask, ...props}) {
     const {path} = useRouteMatch();
     const history = useHistory();
-    const route = new RouteParser(`${path}/${routeMask}`);
+    const route = new RouteParser(`${path}${_.endsWith(path, '/') ? '' : '/' }${routeMask}`);
+    console.log(route);
     const [lastPath, setLastPath] = React.useState(startPath || path);
 
     const changeRoute = (params, fromPath = window.location.pathname, method = history.push) => {
