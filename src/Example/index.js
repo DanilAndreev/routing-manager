@@ -12,7 +12,6 @@ function Panels() {
                 <InfoPanel />
             </Route>
             <Route path={`${path}/:id/input`}>
-
             </Route>
         </Switch>
     );
