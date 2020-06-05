@@ -1,7 +1,24 @@
 {
   "name": "routing-manager",
+  "description": "routing manager for react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/DanilAndreev/routing-manager#readme",
+  "bugs": {
+    "url": "https://github.com/DanilAndreev/routing-manager/issues",
+    "email": "danssg08@gmail.com"
+  },
+  "license": "CC0-1.0",
+  "author": {
+    "name": "Andrieiev Danil",
+    "url": "https://github.com/DanilAndreev",
+    "email": "danssg08@gmail.com"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -14,7 +31,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "publish:npm": "rm -rf dist && mkdir dist &&  babel src/components -d dist --copy-files"
   },
   "eslintConfig": {
     "extends": "react-app"
