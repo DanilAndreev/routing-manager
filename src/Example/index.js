@@ -21,7 +21,7 @@ function Example() {
     const {path} = useRouteMatch();
 
     return (
-        <ChangeRouteProvider routeMask={`:id(/:panel)`} startPath={'/1/info'}>
+        <ChangeRouteProvider routeMask={`/:id(/:panel)`} startPath={'/1/info'}>
             <Switch>
                 <Route path={`/:id`}>
                     <Panels/>

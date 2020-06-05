@@ -16,7 +16,8 @@ const RoutingContext = React.createContext({
 function ChangeRouteProvider({startPath, routeMask, ...props}) {
     const {path} = useRouteMatch();
     const history = useHistory();
-    const route = new RouteParser(`${path}${_.endsWith(path, '/') ? '' : '/' }${routeMask}`);
+    const clearPath = _.endsWith(path, '/') ? path.slice(0, path.length - 1) : path;
+    const route = new RouteParser(`${clearPath}${routeMask}`);
     console.log(route);
     const [lastPath, setLastPath] = React.useState(startPath || path);
 
@@ -35,7 +36,7 @@ function ChangeRouteProvider({startPath, routeMask, ...props}) {
 
         for (const key in params) {
             const item = params[key];
-            switch (item){
+            switch (item) {
                 case undefined:
                     break;
                 case null:
@@ -61,6 +62,7 @@ function ChangeRouteProvider({startPath, routeMask, ...props}) {
         <RoutingContext.Provider value={{changeRoute, getRouteParams, homePath: path}} {...props}/>
     );
 }
+
 ChangeRouteProvider.PropsTypes = {
     startPath: PropTypes.string,
     routeMask: PropTypes.string,
