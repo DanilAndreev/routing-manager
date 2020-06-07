@@ -35,7 +35,7 @@ function ChangeRouteProvider({startPath, routeMask, ...props}) {
         let routeParams = route.match(fromPath || lastPath);
 
         for (const key in params) {
-            const item = params[key];
+            const item = String(params[key]);
             switch (item) {
                 case undefined:
                     break;
