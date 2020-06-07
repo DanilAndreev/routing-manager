@@ -2,6 +2,8 @@ import React from "react";
 import {ChangeRouteProvider} from "../components/ChangeRoute";
 import {Route, BrowserRouter as Router, Switch, useRouteMatch} from "react-router-dom";
 import InfoPanel from "./InfoPanel";
+import InputPanel from "./InputPanel";
+import InfoList from "./InfoList";
 
 function Panels() {
     const {path} = useRouteMatch();
@@ -12,14 +14,13 @@ function Panels() {
                 <InfoPanel/>
             </Route>
             <Route path={`${path}/input`}>
+                <InputPanel />
             </Route>
         </Switch>
     );
 }
 
 function Example() {
-    const {path} = useRouteMatch();
-
     return (
         <ChangeRouteProvider routeMask={`/:id(/:panel)`} startPath={'/1/info'}>
             <Switch>
@@ -27,6 +28,7 @@ function Example() {
                     <Panels/>
                 </Route>
             </Switch>
+            <InfoList />
         </ChangeRouteProvider>
     );
 }
