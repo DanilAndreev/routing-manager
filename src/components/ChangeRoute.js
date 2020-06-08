@@ -1,3 +1,5 @@
+/* Author: Andrieiev Danil | danssg08@gmail.com | https://github.com/DanilAndreev
+   Copyright (C) 2020 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory, useRouteMatch} from 'react-router-dom'
