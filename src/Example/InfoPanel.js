@@ -18,7 +18,7 @@ export default function InfoPanel() {
             <p>
                 We are on panel: {panel} {id}
             </p>
-            <button onClick={event => changeRoute({panel: 'input'})} > Go to input </button>
+            <button onClick={event => changeRoute({panel: 'input'})}> Go to input </button>
         </div>
     );
 }
