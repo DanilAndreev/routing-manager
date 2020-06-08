@@ -9,7 +9,8 @@ designed for managing complicated cyclic routes. For example, you have route, lo
 > routes in brackets are optional.  
 
 So, you need to change ___id___ from panel, and do not loose route data, which stands after ___id___.
-This is what this library was made for. You just need to pass routeMask into ChangeRouteProvider.
+This is what this library was made for. You just need to pass routeMask into ```ChangeRouteProvider``` and use ```changeRoute(options)``` to change route. 
+Also, you can get route params using according to routeMask ```getRouteParams()```.
 ## Getting started
 ### Installation
 ```npm install routing-manager```
