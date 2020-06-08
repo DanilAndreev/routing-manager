@@ -3,7 +3,7 @@
   "description": "routing manager for react",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/DanilAndreev/routing-manager#readme",
+  "homepage": "/1/info",
   "bugs": {
     "url": "https://github.com/DanilAndreev/routing-manager/issues",
     "email": "danssg08@gmail.com"
@@ -26,6 +26,7 @@
     "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "route-parser": "0.0.5"

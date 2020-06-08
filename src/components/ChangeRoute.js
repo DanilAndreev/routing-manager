@@ -1,3 +1,5 @@
+/* Author: Andrieiev Danil | danssg08@gmail.com | https://github.com/DanilAndreev
+   Copyright (C) 2020 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory, useRouteMatch} from 'react-router-dom'
@@ -16,7 +18,9 @@ const RoutingContext = React.createContext({
 function ChangeRouteProvider({startPath, routeMask, ...props}) {
     const {path} = useRouteMatch();
     const history = useHistory();
-    const route = new RouteParser(`${path}/${routeMask}`);
+    const clearPath = _.endsWith(path, '/') ? path.slice(0, path.length - 1) : path;
+    const route = new RouteParser(`${clearPath}${routeMask}`);
+    console.log(route);
     const [lastPath, setLastPath] = React.useState(startPath || path);
 
     const changeRoute = (params, fromPath = window.location.pathname, method = history.push) => {
@@ -33,8 +37,8 @@ function ChangeRouteProvider({startPath, routeMask, ...props}) {
         let routeParams = route.match(fromPath || lastPath);
 
         for (const key in params) {
-            const item = params[key];
-            switch (item){
+            const item = String(params[key]);
+            switch (item) {
                 case undefined:
                     break;
                 case null:
@@ -60,6 +64,7 @@ function ChangeRouteProvider({startPath, routeMask, ...props}) {
         <RoutingContext.Provider value={{changeRoute, getRouteParams, homePath: path}} {...props}/>
     );
 }
+
 ChangeRouteProvider.PropsTypes = {
     startPath: PropTypes.string,
     routeMask: PropTypes.string,
