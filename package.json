@@ -23,7 +23,6 @@
       "@babel/preset-react"
     ]
   },
-  "files": ["lib/*"],
   "main": "lib/changeRoute.js",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
