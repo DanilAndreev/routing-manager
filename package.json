@@ -4,6 +4,10 @@
   "version": "0.1.2",
   "private": false,
   "homepage": "/1/info",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DanilAndreev/routing-manager"
+  },
   "bugs": {
     "url": "https://github.com/DanilAndreev/routing-manager/issues",
     "email": "danssg08@gmail.com"
@@ -19,6 +23,8 @@
       "@babel/preset-react"
     ]
   },
+  "files": ["lib/**/*"],
+  "main": "lib/changeRoute.js",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -31,12 +37,17 @@
     "react-scripts": "3.4.1",
     "route-parser": "0.0.5"
   },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/preset-react": "^7.10.1"
+  },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npx babel src/components --out-dir lib",
+    "build-example": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish:npm": "rm -rf dist && mkdir dist &&  babel src/components -d dist --copy-files"
+    "publish:npm": "rm -rf lib && mkdir lib &&  babel src/components -d lib --copy-files"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -52,9 +63,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.10.1",
-    "@babel/preset-react": "^7.10.1"
   }
 }
