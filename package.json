@@ -23,7 +23,7 @@
       "@babel/preset-react"
     ]
   },
-  "files": ["lib/**/*"],
+  "files": ["lib/*"],
   "main": "lib/changeRoute.js",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -47,7 +47,7 @@
     "build-example": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish:npm": "rm -rf lib && mkdir lib &&  babel src/components -d lib --copy-files"
+    "publish:npm": "npm run build && npm publish"
   },
   "eslintConfig": {
     "extends": "react-app"
