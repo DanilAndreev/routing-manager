@@ -1,8 +1,8 @@
 {
   "name": "routing-manager",
   "description": "routing manager for react",
-  "version": "0.1.1",
-  "private": true,
+  "version": "0.1.2",
+  "private": false,
   "homepage": "/1/info",
   "bugs": {
     "url": "https://github.com/DanilAndreev/routing-manager/issues",
