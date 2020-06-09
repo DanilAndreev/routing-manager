@@ -46,7 +46,7 @@
     "build-example": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish:npm": "npm run build && npm publish",
+    "publish": "npm run build && npm publish",
     "pack": "npm run build && npm pack"
   },
   "eslintConfig": {
