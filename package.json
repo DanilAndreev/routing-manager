@@ -1,7 +1,7 @@
 {
   "name": "routing-manager",
   "description": "routing manager for react",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": false,
   "homepage": "/1/info",
   "repository": {
@@ -46,7 +46,7 @@
     "build-example": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish": "npm run build && npm publish",
+    "publish:npm": "npm run build && npm publish",
     "pack": "npm run build && npm pack"
   },
   "eslintConfig": {
