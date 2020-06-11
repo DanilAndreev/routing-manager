@@ -37,7 +37,7 @@ function ChangeRouteProvider({startPath, routeMask, ...props}) {
         let routeParams = route.match(fromPath || lastPath);
 
         for (const key in params) {
-            const item = String(params[key]);
+            const item = params[key];
             switch (item) {
                 case undefined:
                     break;
@@ -45,10 +45,11 @@ function ChangeRouteProvider({startPath, routeMask, ...props}) {
                     routeParams = {...routeParams, [key]: undefined}
                     break;
                 default:
-                    if (_.startsWith(item, '(') && _.endsWith(item, ')')) {
-                        routeParams = {...routeParams, [key]: routeParams[key] || item}
+                    const item_str = String(params[key]);
+                    if (_.startsWith(item_str, '(') && _.endsWith(item_str, ')')) {
+                        routeParams = {...routeParams, [key]: routeParams[key] || item_str}
                     } else {
-                        routeParams = {...routeParams, [key]: item}
+                        routeParams = {...routeParams, [key]: item_str}
                     }
             }
         }
