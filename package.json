@@ -1,7 +1,7 @@
 {
-  "name": "routing-manager",
+  "name": "@danilandreev/routing-manager",
   "description": "routing manager for react",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "private": false,
   "homepage": "/1/info",
   "repository": {
