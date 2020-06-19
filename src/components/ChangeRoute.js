@@ -16,7 +16,7 @@ const RoutingContext = React.createContext({
      * @param {string} [fromPath] current url, by default - window.location.pathname
      * @param {function} [method] function for applying new route, by default - react-router-dom history.push
      *
-     * [See more](https://github.com/DanilAndreev/routing-manager/wiki/changeRoute)
+     * @see [See more](https://github.com/DanilAndreev/routing-manager/wiki/changeRoute)
      */
     changeRoute: (params, fromPath , method) => {
     },
@@ -25,10 +25,14 @@ const RoutingContext = React.createContext({
      * getRouteParams - function, used to get route parameters.
      * @param {string} [url] current url to parse. Be default - window.location.pathname
      *
-     * [See more](https://github.com/DanilAndreev/routing-manager/wiki/getRouteParams)
+     * @see [See more](https://github.com/DanilAndreev/routing-manager/wiki/getRouteParams)
      */
     getRouteParams: (url) => {
     },
+    /**
+     * homePath - is a string path, where <ChangeRouteProvider /> start working.
+     * @type {string}
+     */
     homePath: undefined
 });
 
@@ -79,7 +83,7 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
     const getRouteParams = (url = location.pathname) => route.match(url);
 
     return (
-        <RoutingContext.Provider value={{changeRoute, getRouteParams, homePath: clearPath}} {...props}/>
+        <RoutingContext.Provider value={{changeRoute, getRouteParams, homePath: path}} {...props}/>
     );
 }
 
