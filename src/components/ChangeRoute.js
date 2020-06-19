@@ -37,11 +37,31 @@ const RoutingContext = React.createContext({
 });
 
 function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
+    /**
+     * path - used to determine beginning of route
+     * @type {string}
+     */
     const {path} = useRouteMatch();
+    /**
+     * history - used to push or replace new routes
+     * @type {object}
+     */
     const history = useHistory();
+    /**
+     * clearPath - clear string, based on path without extra slashes
+     * @type {string}
+     */
     const clearPath = _.endsWith(path, '/') ? path.slice(0, path.length - 1) : path;
+    /**
+     * route - instance of RouteParser, used to parse ```location.pathname``` using route mask
+     * @type {object}
+     */
     const route = new RouteParser(`${clearPath}${routeMask}`);
     const [lastPath, setLastPath] = React.useState(startPath || path);
+    /**
+     * location - used to get ```location.pathname``` of page
+     * @type {object}
+     */
     let location = useLocation();
 
     const changeRoute = (params, fromPath = window.location.pathname, method = history.push) => {
