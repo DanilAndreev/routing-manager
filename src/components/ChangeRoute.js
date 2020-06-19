@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {useHistory, useRouteMatch} from 'react-router-dom'
 import RouteParser from 'route-parser';
 import _ from 'lodash';
+import {useLocation} from "react-router";
 
 
 const RoutingContext = React.createContext({
@@ -19,8 +20,9 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
     const {path} = useRouteMatch();
     const history = useHistory();
     const clearPath = _.endsWith(path, '/') ? path.slice(0, path.length - 1) : path;
-    const route = new RouteParser(`${basename || ''}${clearPath}${routeMask}`);
+    const route = new RouteParser(`${clearPath}${routeMask}`);
     const [lastPath, setLastPath] = React.useState(startPath || path);
+    let location = useLocation();
 
     const changeRoute = (params, fromPath = window.location.pathname, method = history.push) => {
         if (typeof params !== 'object') {
@@ -58,7 +60,7 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
         method(newRoute);
     };
 
-    const getRouteParams = (url = window.location.pathname) => route.match(url);
+    const getRouteParams = (url = location.pathname) => route.match(url);
 
     return (
         <RoutingContext.Provider value={{changeRoute, getRouteParams, homePath: clearPath}} {...props}/>
