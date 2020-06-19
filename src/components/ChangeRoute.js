@@ -15,12 +15,11 @@ const RoutingContext = React.createContext({
     homePath: undefined
 });
 
-function ChangeRouteProvider({startPath, routeMask, ...props}) {
+function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
     const {path} = useRouteMatch();
     const history = useHistory();
     const clearPath = _.endsWith(path, '/') ? path.slice(0, path.length - 1) : path;
-    const route = new RouteParser(`${clearPath}${routeMask}`);
-    console.log(route);
+    const route = new RouteParser(`${basename || ''}${clearPath}${routeMask}`);
     const [lastPath, setLastPath] = React.useState(startPath || path);
 
     const changeRoute = (params, fromPath = window.location.pathname, method = history.push) => {
