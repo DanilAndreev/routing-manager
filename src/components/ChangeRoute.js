@@ -61,11 +61,11 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
     const getRouteParams = (url = window.location.pathname) => route.match(url);
 
     return (
-        <RoutingContext.Provider value={{changeRoute, getRouteParams, homePath: path}} {...props}/>
+        <RoutingContext.Provider value={{changeRoute, getRouteParams, homePath: clearPath}} {...props}/>
     );
 }
 
-ChangeRouteProvider.PropsTypes = {
+ChangeRouteProvider.ptopTypes = {
     startPath: PropTypes.string,
     routeMask: PropTypes.string,
 }
