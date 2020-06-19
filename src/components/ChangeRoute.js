@@ -9,9 +9,25 @@ import {useLocation} from "react-router";
 
 
 const RoutingContext = React.createContext({
-    changeRoute: () => {
+    /**
+     * @func
+     * changeRoute - function, used to rebuild and apply route
+     * @param {object} params object with information for route rebuild
+     * @param {string} [fromPath] current url, by default - window.location.pathname
+     * @param {function} [method] function for applying new route, by default - react-router-dom history.push
+     *
+     * [See more](https://github.com/DanilAndreev/routing-manager/wiki/changeRoute)
+     */
+    changeRoute: (params, fromPath , method) => {
     },
-    getRouteParams: () => {
+    /**
+     * @func
+     * getRouteParams - function, used to get route parameters.
+     * @param {string} [url] current url to parse. Be default - window.location.pathname
+     *
+     * [See more](https://github.com/DanilAndreev/routing-manager/wiki/getRouteParams)
+     */
+    getRouteParams: (url) => {
     },
     homePath: undefined
 });
@@ -67,9 +83,17 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
     );
 }
 
-ChangeRouteProvider.ptopTypes = {
+ChangeRouteProvider.propTypes = {
+    /**
+     * startPath used to determine start path for history. Not necessary.
+     * [See more](https://github.com/DanilAndreev/routing-manager/wiki/ChangeRouteProvider#startpath)
+     */
     startPath: PropTypes.string,
-    routeMask: PropTypes.string,
+    /**
+     * routeMask used to provide routing-manager with route structure.
+     * [See more](https://github.com/DanilAndreev/routing-manager/wiki/ChangeRouteProvider#routemask)
+     */
+    routeMask: PropTypes.string.isRequired,
 }
 
 const useChangeRoute = () => React.useContext((RoutingContext));
