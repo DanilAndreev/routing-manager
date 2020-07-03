@@ -15,7 +15,7 @@ Also, you can get route params using according to routeMask ```getRouteParams()`
 ### Installation
 ```npm install routing-manager```
 ### Usage
-```
+```jsx
 import {
     ChangeRouteProvider, 
     usaChangeRoute
