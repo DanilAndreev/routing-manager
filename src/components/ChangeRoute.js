@@ -129,7 +129,25 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
             case null:
                 break;
             default:
-                newRoute += '?' + qs.stringify(query);
+                const prevQuery =  getQueryParams()
+                const newQuery = {...prevQuery};
+                for (const key in newQuery) {
+                    const newItem = query[key];
+                    switch (newItem) {
+                        case undefined:
+                            break;
+                        case null:
+                            newQuery[key] = undefined;
+                        default:
+                            newQuery[key] = newItem;
+                    }
+                }
+                const prevKeys = Object.keys(prevQuery);
+                const unprocessedKeys = Object.keys(query).filter(item => !prevKeys.includes(item));
+                for (const key of unprocessedKeys) {
+                    newQuery[key] = query[key];
+                }
+                newRoute += '?' + qs.stringify(newQuery);
         }
 
         // Adding generated route to history
