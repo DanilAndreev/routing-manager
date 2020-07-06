@@ -19,6 +19,8 @@ export default function InputPanel() {
 
     return (
         <div>
+            <button onClick={event => changeRoute({}, {title: null})}> Clear title </button>
+            <button onClick={event => changeRoute({}, {text: null})}> Clear text </button>
             <p>
                 <input
                     name={'title'}

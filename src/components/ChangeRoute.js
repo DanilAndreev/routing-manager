@@ -137,7 +137,8 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
                         case undefined:
                             break;
                         case null:
-                            newQuery[key] = undefined;
+                            delete newQuery[key];
+                            break;
                         default:
                             newQuery[key] = newItem;
                     }
@@ -145,8 +146,9 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
                 const prevKeys = Object.keys(prevQuery);
                 const unprocessedKeys = Object.keys(query).filter(item => !prevKeys.includes(item));
                 for (const key of unprocessedKeys) {
-                    newQuery[key] = query[key];
+                    newQuery[key] = query[key] || undefined;
                 }
+                console.log(newQuery);
                 newRoute += '?' + qs.stringify(newQuery);
         }
 
