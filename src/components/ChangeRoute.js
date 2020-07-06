@@ -35,8 +35,9 @@ const RoutingContext = React.createContext({
      * @function
      * getQueryParams - function, used to get query string parameters.
      * @param {string} [query] current query string to parse. By default - location.search
+     *
+     * @see [See more](https://github.com/DanilAndreev/routing-manager/wiki/getQueryParams)
      */
-    // TODO: add see field with wiki link
     getQueryParams: (query) => {
     },
     /**
