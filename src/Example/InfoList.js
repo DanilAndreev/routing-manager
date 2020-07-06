@@ -14,7 +14,7 @@ function ListItem({text, id, ...props}) {
     const {changeRoute} = useChangeRoute();
     return (
         <li>
-            <button onClick={event => changeRoute({id, panel: '(info)'})}> {text} </button>
+            <button onClick={event => changeRoute({id, panel: '(info)'}, null)}> {text} </button>
         </li>
     );
 }

@@ -6,28 +6,38 @@ import {useHistory, useRouteMatch} from 'react-router-dom'
 import RouteParser from 'route-parser';
 import _ from 'lodash';
 import {useLocation} from "react-router";
+import * as qs from "qs";
 
 
 const RoutingContext = React.createContext({
     /**
-     * @func
+     * @function
      * changeRoute - function, used to rebuild and apply route
      * @param {object} params object with information for route rebuild
+     * @param {object} [query] object with information for query string rebuild
      * @param {string} [fromPath] current url, by default - window.location.pathname
      * @param {function} [method] function for applying new route, by default - react-router-dom history.push
      *
      * @see [See more](https://github.com/DanilAndreev/routing-manager/wiki/changeRoute)
      */
-    changeRoute: (params, fromPath , method) => {
+    changeRoute: (params, query, fromPath, method) => {
     },
     /**
-     * @func
+     * @function
      * getRouteParams - function, used to get route parameters.
-     * @param {string} [url] current url to parse. Be default - window.location.pathname
+     * @param {string} [url] current url to parse. By default - location.pathname
      *
      * @see [See more](https://github.com/DanilAndreev/routing-manager/wiki/getRouteParams)
      */
     getRouteParams: (url) => {
+    },
+    /**
+     * @function
+     * getQueryParams - function, used to get query string parameters.
+     * @param {string} [query] current query string to parse. By default - location.search
+     */
+    // TODO: add see field with wiki link
+    getQueryParams: (query) => {
     },
     /**
      * homePath - is a string path, where <ChangeRouteProvider /> start working.
@@ -64,9 +74,20 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
      */
     let location = useLocation();
 
-    const changeRoute = (params, fromPath = window.location.pathname, method = history.push) => {
+    const getQueryParams = (query = location.search) => {
+        const clearQuery = query[0] !== '?' ? query : query.substr(1);
+        return qs.parse(clearQuery, {plainObjects: true})
+    };
+
+    const getRouteParams = (url = location.pathname) => route.match(url);
+
+    const changeRoute = (params, query, fromPath = location.pathname, method = history.push) => {
+        // Checking types and throwing errors
         if (typeof params !== 'object') {
             throw new TypeError('params should be object type');
+        }
+        if (query && typeof query !== 'object') {
+            throw new TypeError('query should be object type');
         }
         if (fromPath && typeof fromPath !== 'string') {
             throw new TypeError('fromPath should be string type');
@@ -75,8 +96,10 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
             throw new TypeError('method should be function type');
         }
 
+        // Parsing route
         let routeParams = route.match(fromPath || lastPath);
 
+        // Analyzing route and replacing params
         for (const key in params) {
             const item = params[key];
             switch (item) {
@@ -95,15 +118,28 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
             }
         }
 
-        const newRoute = route.reverse(routeParams);
+        // Converting built route to string
+        let newRoute = route.reverse(routeParams);
+
+        // Applying query params to new route
+        switch (query) {
+            case undefined:
+                newRoute += location.search;
+                break;
+            case null:
+                break;
+            default:
+                newRoute += '?' + qs.stringify(query);
+        }
+
+        // Adding generated route to history
         setLastPath(newRoute);
+        // Applying new route
         method(newRoute);
     };
 
-    const getRouteParams = (url = location.pathname) => route.match(url);
-
     return (
-        <RoutingContext.Provider value={{changeRoute, getRouteParams, homePath: path}} {...props}/>
+        <RoutingContext.Provider value={{changeRoute, getRouteParams, getQueryParams, homePath: path}} {...props}/>
     );
 }
 

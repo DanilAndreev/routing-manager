@@ -5,16 +5,37 @@ import {useChangeRoute} from "../components/ChangeRoute";
 
 
 export default function InputPanel() {
-    const {changeRoute} = useChangeRoute();
-    return(
+    const {changeRoute, getQueryParams} = useChangeRoute();
+    const {text, title} = getQueryParams();
+    const [data, setData] = React.useState({});
+
+    React.useEffect(() => {
+        setData({text, title});
+    }, []);
+
+    function handleInput(event) {
+        setData({...data, [event.target.name]: event.target.value});
+    }
+
+    return (
         <div>
             <p>
-                <input placeholder={'Input title'}/>
+                <input
+                    name={'title'}
+                    placeholder={'Input title'}
+                    onChange={handleInput}
+                    value={data.title || ''}
+                />
             </p>
             <p>
-                <input placeholder={'Input text'}/>
+                <input
+                    name={'text'}
+                    placeholder={'Input text'}
+                    onChange={handleInput}
+                    value={data.text || ''}
+                />
             </p>
-            <button onClick={event => changeRoute({panel: 'info'})} > Go to info </button>
+            <button onClick={event => changeRoute({panel: 'info'}, data)}> Go to info</button>
         </div>
     );
 }
