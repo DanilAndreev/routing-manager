@@ -1,7 +1,7 @@
 {
   "name": "routing-manager",
   "description": "routing manager for react",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "private": false,
   "homepage": "/1/info",
   "repository": {
@@ -30,6 +30,7 @@
     "@testing-library/user-event": "^7.2.1",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
+    "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router": "^5.2.0",
