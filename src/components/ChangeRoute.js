@@ -149,7 +149,6 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
                 for (const key of unprocessedKeys) {
                     newQuery[key] = query[key] || undefined;
                 }
-                console.log(newQuery);
                 newRoute += '?' + qs.stringify(newQuery);
         }
 
