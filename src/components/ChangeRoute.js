@@ -112,9 +112,9 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
                 default:
                     const item_str = String(params[key]);
                     if (_.startsWith(item_str, '(') && _.endsWith(item_str, ')')) {
-                        routeParams = {...routeParams, [key]: routeParams[key] || item_str}
+                        routeParams = {...routeParams, [key]: routeParams[key] || item_str.slice(1, -1) || undefined}
                     } else {
-                        routeParams = {...routeParams, [key]: item_str}
+                        routeParams = {...routeParams, [key]: item_str || undefined}
                     }
             }
         }
