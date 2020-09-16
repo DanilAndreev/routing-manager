@@ -84,7 +84,7 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
 
     const changeRoute = (params, query, fromPath = location.pathname, method = history.push) => {
         // Checking types and throwing errors
-        if (typeof params !== 'object') {
+        if (params && typeof params !== 'object') {
             throw new TypeError('params should be object type');
         }
         if (query && typeof query !== 'object') {
@@ -99,57 +99,62 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
 
         // Parsing route
         let routeParams = route.match(fromPath || lastPath);
+        let newRoute = fromPath || lastPath;
 
         // Analyzing route and replacing params
-        for (const key in params) {
-            const item = params[key];
-            switch (item) {
-                case undefined:
-                    break;
-                case null:
-                    routeParams = {...routeParams, [key]: undefined}
-                    break;
-                default:
-                    const item_str = String(params[key]);
-                    if (_.startsWith(item_str, '(') && _.endsWith(item_str, ')')) {
-                        routeParams = {...routeParams, [key]: routeParams[key] || item_str.slice(1, -1) || undefined}
-                    } else {
-                        routeParams = {...routeParams, [key]: item_str || undefined}
-                    }
+        if (params) {
+            for (const key in params) {
+                const item = params[key];
+                switch (item) {
+                    case undefined:
+                        break;
+                    case null:
+                        routeParams = {...routeParams, [key]: undefined}
+                        break;
+                    default:
+                        const item_str = String(params[key]);
+                        if (_.startsWith(item_str, '(') && _.endsWith(item_str, ')')) {
+                            routeParams = {...routeParams, [key]: routeParams[key] || item_str.slice(1, -1) || undefined}
+                        } else {
+                            routeParams = {...routeParams, [key]: item_str || undefined}
+                        }
+                }
             }
+
+            // Converting built route to string
+            newRoute = route.reverse(routeParams);
         }
 
-        // Converting built route to string
-        let newRoute = route.reverse(routeParams);
-
         // Applying query params to new route
-        switch (query) {
-            case undefined:
-                newRoute += location.search;
-                break;
-            case null:
-                break;
-            default:
-                const prevQuery =  getQueryParams()
-                const newQuery = {...prevQuery};
-                for (const key in newQuery) {
-                    const newItem = query[key];
-                    switch (newItem) {
-                        case undefined:
-                            break;
-                        case null:
-                            delete newQuery[key];
-                            break;
-                        default:
-                            newQuery[key] = newItem;
+        if (query) {
+            switch (query) {
+                case undefined:
+                    newRoute += location.search;
+                    break;
+                case null:
+                    break;
+                default:
+                    const prevQuery =  getQueryParams()
+                    const newQuery = {...prevQuery};
+                    for (const key in newQuery) {
+                        const newItem = query[key];
+                        switch (newItem) {
+                            case undefined:
+                                break;
+                            case null:
+                                delete newQuery[key];
+                                break;
+                            default:
+                                newQuery[key] = newItem;
+                        }
                     }
-                }
-                const prevKeys = Object.keys(prevQuery);
-                const unprocessedKeys = Object.keys(query).filter(item => !prevKeys.includes(item));
-                for (const key of unprocessedKeys) {
-                    newQuery[key] = query[key] || undefined;
-                }
-                newRoute += '?' + qs.stringify(newQuery);
+                    const prevKeys = Object.keys(prevQuery);
+                    const unprocessedKeys = Object.keys(query).filter(item => !prevKeys.includes(item));
+                    for (const key of unprocessedKeys) {
+                        newQuery[key] = query[key] || undefined;
+                    }
+                    newRoute += '?' + qs.stringify(newQuery);
+            }
         }
 
         // Adding generated route to history
