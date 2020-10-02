@@ -35,7 +35,7 @@ export interface RoutingContext {
     homePath: string
 }
 
-export interface ChangeRouteProps extends React.ProviderProps<RoutingContext>{
+export interface ChangeRouteProps{
     /**
      * startPath - is used to determine start path for history. Not necessary.
      * [See more](https://github.com/DanilAndreev/routing-manager/wiki/ChangeRouteProvider#startpath)
@@ -51,6 +51,10 @@ export interface ChangeRouteProps extends React.ProviderProps<RoutingContext>{
      * @ignore
      */
     basename?: string;
+    /**
+     * children - children of the component.
+     */
+    children: any;
 }
 
 /**
