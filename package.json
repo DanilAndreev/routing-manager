@@ -28,6 +28,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "copyfiles": "^2.4.0",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "qs": "^6.9.4",
@@ -44,7 +45,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npx babel src/components --out-dir lib",
+    "build": "npm run build:library && npm run build:declarations",
+    "build:declarations": "copyfiles --up 2 \"src/components/**/*.d.ts\" ./lib --verbose",
+    "build:library": "npx babel src/components --out-dir lib",
     "build-example": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
