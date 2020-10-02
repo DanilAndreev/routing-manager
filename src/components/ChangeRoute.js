@@ -47,7 +47,13 @@ const RoutingContext = React.createContext({
     homePath: undefined
 });
 
-function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
+function ChangeRouteProvider(props) {
+    const {
+        startPath,
+        routeMask,
+        basename,
+        ...other
+    } = props;
     /**
      * path - used to determine beginning of route
      * @type {string}
@@ -169,15 +175,7 @@ function ChangeRouteProvider({startPath, routeMask, basename, ...props}) {
 }
 
 ChangeRouteProvider.propTypes = {
-    /**
-     * startPath used to determine start path for history. Not necessary.
-     * [See more](https://github.com/DanilAndreev/routing-manager/wiki/ChangeRouteProvider#startpath)
-     */
     startPath: PropTypes.string,
-    /**
-     * routeMask used to provide routing-manager with route structure.
-     * [See more](https://github.com/DanilAndreev/routing-manager/wiki/ChangeRouteProvider#routemask)
-     */
     routeMask: PropTypes.string.isRequired,
 }
 
