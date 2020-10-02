@@ -58,6 +58,12 @@ export interface ChangeRouteProps{
 }
 
 /**
+ * useChangeRoute - React hook, designed to access to routing-manager functional.
+ * @function
+ */
+export function useChangeRoute(): RoutingContext;
+
+/**
  * ChangeRouteProvider - React provider, which allows you tu use advanced routing.
  * @function
  * @param props
