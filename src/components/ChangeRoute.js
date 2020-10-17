@@ -42,42 +42,53 @@ const RoutingContext = React.createContext({
     },
     /**
      * homePath - is a string path, where <ChangeRouteProvider /> start working.
-     * @type {string}
+     * @type string
      */
-    homePath: undefined
+    homePath: undefined,
+    /**
+     * routeMask - route mask from provider.
+     * @type string
+     */
+    routeMask: undefined,
 });
 
 function ChangeRouteProvider(props) {
     const {
         startPath,
         routeMask,
-        basename,
         ...other
     } = props;
     /**
-     * path - used to determine beginning of route
-     * @type {string}
+     * routerPath - used to determine beginning of route
+     * @type string
      */
-    const {path} = useRouteMatch();
+    const {path: routerPath} = useRouteMatch();
+
+    /**
+     * parentRouteMask - parent route mask.
+     */
+    const {routeMask: parentRouteMask} = useChangeRoute();
+
+    const path = parentRouteMask || routerPath;
     /**
      * history - used to push or replace new routes
-     * @type {object}
+     * @type object
      */
     const history = useHistory();
     /**
      * clearPath - clear string, based on path without extra slashes
-     * @type {string}
+     * @type string
      */
     const clearPath = _.endsWith(path, '/') ? path.slice(0, path.length - 1) : path;
     /**
      * route - instance of RouteParser, used to parse ```location.pathname``` using route mask
-     * @type {object}
+     * @type object
      */
     const route = new RouteParser(`${clearPath}${routeMask}`);
     const [lastPath, setLastPath] = React.useState(startPath || path);
     /**
      * location - used to get ```location.pathname``` of page
-     * @type {object}
+     * @type object
      */
     let location = useLocation();
 
@@ -171,7 +182,7 @@ function ChangeRouteProvider(props) {
     };
 
     return (
-        <RoutingContext.Provider value={{changeRoute, getRouteParams, getQueryParams, homePath: path}} {...props}/>
+        <RoutingContext.Provider value={{changeRoute, getRouteParams, getQueryParams, homePath: path, routeMask}} {...props}/>
     );
 }
 
