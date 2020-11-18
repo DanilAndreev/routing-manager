@@ -4,7 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory, useRouteMatch} from 'react-router-dom'
 import RouteParser from 'route-parser';
-import _ from 'lodash';
+import startsWith from "./startsWith";
+import endsWith from "./endsWith";
 import {useLocation} from "react-router";
 import * as qs from "qs";
 
@@ -79,7 +80,7 @@ function ChangeRouteProvider(props) {
      * clearPath - clear string, based on path without extra slashes
      * @type string
      */
-    const clearPath = _.endsWith(path, '/') ? path.slice(0, path.length - 1) : path;
+    const clearPath = endsWith(path, '/') ? path.slice(0, path.length - 1) : path;
     /**
      * route - instance of RouteParser, used to parse ```location.pathname``` using route mask
      * @type object
@@ -130,7 +131,7 @@ function ChangeRouteProvider(props) {
                         break;
                     default:
                         const item_str = String(params[key]);
-                        if (_.startsWith(item_str, '(') && _.endsWith(item_str, ')')) {
+                        if (startsWith(item_str, '(') && endsWith(item_str, ')')) {
                             routeParams = {
                                 ...routeParams,
                                 [key]: routeParams[key] || item_str.slice(1, -1) || undefined
